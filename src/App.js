@@ -1,28 +1,34 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
-  }
+import React from 'react';
+
+import { Map, Marker, Popup, TileLayer } from 'react-leaflet';
+
+class App extends React.Component {
+    constructor() {
+        super();
+        this.state = {
+            lat: 51.505,
+            lng: -0.09,
+            zoom: 13,
+        };
+    }
+
+    render() {
+        const position = [this.state.lat, this.state.lng];
+        return (
+            <Map center={position} zoom={this.state.zoom}>
+                <TileLayer
+                    attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                    url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
+                />
+                <Marker position={position}>
+                    <Popup>
+                        <span>A pretty CSS3 popup. <br/> Easily customizable.</span>
+                    </Popup>
+                </Marker>
+            </Map>
+        );
+    }
 }
 
 export default App;
